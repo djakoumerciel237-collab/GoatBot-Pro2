@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=18&duration=3000&pause=800&color=00FFD1&center=true&vCenter=true&width=700&lines=GOAT+MESSENGER;Facebook+Messenger+Bot+Framework;Built+on+Goat+Bot+V2+%E2%80%94+Modified+by+EryXenX;Fast+%E2%80%A2+Smart+%E2%80%A2+Reliable+%E2%80%A2+Powerful" />
+<img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&weight=700&size=18&duration=3000&pause=800&color=00FFD1&center=true&vCenter=true&width=700&lines=GoatBot-Pro;Facebook+Messenger+Bot+Framework;Built+on+Goat+Bot+V2+%E2%80%94+Modified+by+EryXenX;Fast+%E2%80%A2+Smart+%E2%80%A2+Reliable+%E2%80%A2+Powerful" />
 
 <br/>
 
@@ -16,15 +16,18 @@
 
 ## ◈ About
 
-**GOAT MESSENGER** is a modified fork of [Goat Bot V2](https://github.com/ntkhang03/Goat-Bot-V2) by **ntkhang03**, enhanced and maintained by **EryXenX**.
+Assalamu Alaikum! **GoatBot-Pro** is an enhanced fork of [Goat Bot V2](https://github.com/ntkhang03/Goat-Bot-V2) by **ntkhang03**, rebuilt and maintained by **EryXenX (Mohammad Akash)** with new features, multi-language support, and custom commands.
 
 | Feature | Description |
 |---|---|
 | 🔌 **Custom FCA** | Uses `fca-eryxenx` — patched fork with bug fixes and stability improvements |
 | ⚙️ **Handler Improvements** | No-prefix system for bot admins, smart command suggestion |
+| 🌐 **Multi-Language** | Supports EN, BN, HI, TL, AR, VI |
 | 🎨 **UI Overhaul** | Redesigned message templates with clean formatting |
 | 🛡️ **React Unsend** | Auto-unsend messages on specific emoji reactions |
 | 🔧 **Setting Command** | Full bot config control via chat — no need to edit files manually |
+
+> ⚠️ For educational purposes only. Any misuse or illegal activity is solely the user's responsibility.
 
 ---
 
@@ -48,7 +51,7 @@
 | Role | Person | Link |
 |---|---|---|
 | 🏆 **Original Creator** | NTKhang | [Goat Bot V2](https://github.com/ntkhang03/Goat-Bot-V2) |
-| 🔧 **This Fork** | EryXenX | [GOAT-MESSENGER](https://github.com/EryXenX/GOAT-MESSENGER) |
+| 🔧 **This Fork** | EryXenX | [GoatBot-Pro](https://github.com/EryXenX/GoatBot-Pro) |
 
 > All core copyright belongs to **NTKhang (ntkhang03)**. This fork does not override the original license.
 
@@ -61,7 +64,7 @@
 ### 📹 Watch Before You Start
 
 <a href="https://youtu.be/gPf_BFhQz_w?si=-iknmkmFd_NcRahY">
-  <img src="https://img.youtube.com/vi/gPf_BFhQz_w/maxresdefault.jpg" alt="GOAT MESSENGER Setup Tutorial" width="680" />
+  <img src="https://img.youtube.com/vi/gPf_BFhQz_w/maxresdefault.jpg" alt="GoatBot-Pro Setup Tutorial" width="680" />
 </a>
 
 <br/>
@@ -75,8 +78,8 @@
 ## ◈ Setup
 
 ```bash
-git clone https://github.com/EryXenX/GOAT-MESSENGER.git
-cd GOAT-MESSENGER
+git clone https://github.com/EryXenX/GoatBot-Pro.git
+cd GoatBot-Pro
 npm install
 node index.js
 ```
@@ -92,39 +95,34 @@ Commands go in `scripts/cmds/yourcommand.js`.
 ```js
 module.exports = {
   config: {
-    name: "commandname",        // trigger name
+    name: "commandname",
     version: "1.0.0",
     author: "YourName",
-    countDown: 5,               // cooldown in seconds
-    role: 0,                    // 0 = everyone, 1 = group admin, 2 = bot admin
+    countDown: 5,
+    role: 0,
     shortDescription: "...",
     longDescription: "...",
     category: "fun",
     guide: "{prefix}commandname [args]"
   },
 
-  // ─── Triggered when command is used ───
   onStart: async function ({ api, event, args, message, getLang }) {
     message.reply("Hello!");
   },
 
-  // ─── Triggered when someone replies to bot's message ───
   onReply: async function ({ api, event, Reply, message }) {
     if (event.senderID !== Reply.author) return;
     message.reply(`You replied: ${event.body}`);
   },
 
-  // ─── Triggered when someone reacts to bot's message ───
   onReaction: async function ({ api, event, Reaction, message }) {
     message.reply(`You reacted with: ${event.reaction}`);
   },
 
-  // ─── Triggered on every message (no prefix needed) ───
   onChat: async function ({ api, event, message }) {
     if (event.body === "hello") message.reply("hi!");
   },
 
-  // ─── Triggered on thread events (join/leave etc.) ───
   onEvent: async function ({ api, event, message }) {
     if (event.logMessageType === "log:subscribe") {
       message.reply("Welcome!");
@@ -148,9 +146,9 @@ module.exports = {
 ## ◈ API Reference
 
 ```js
-message.reply("text")                              // reply to current message
-api.sendMessage("text", threadID)                  // send to any thread
-api.sendMessage({ body: "text", attachment }, tid) // send with file/image
+message.reply("text")
+api.sendMessage("text", threadID)
+api.sendMessage({ body: "text", attachment }, tid)
 api.setMessageReaction("✅", event.messageID, () => {}, true)
 api.unsendMessage(messageID)
 api.getCurrentUserID()
@@ -163,16 +161,14 @@ await api.getUserInfo(userID)
 ## ◈ onReply Pattern
 
 ```js
-// In onStart — register reply listener
 const sent = await message.reply("What's your name?");
 global.GoatBot.onReply.set(sent.messageID, {
   commandName: "mycommand",
   messageID: sent.messageID,
   author: event.senderID,
-  step: 1  // any extra data
+  step: 1
 });
 
-// In onReply — handle the reply
 onReply: async function ({ api, event, Reply, message }) {
   if (event.senderID !== Reply.author) return;
   message.reply(`Hello, ${event.body}!`);
@@ -185,11 +181,11 @@ onReply: async function ({ api, event, Reply, message }) {
 
 ```js
 switch (event.logMessageType) {
-  case "log:subscribe":    // User joined
-  case "log:unsubscribe":  // User left
-  case "log:thread-name":  // Group name changed
-  case "log:thread-image": // Group photo changed
-  case "log:thread-admins":// Admin list changed
+  case "log:subscribe":
+  case "log:unsubscribe":
+  case "log:thread-name":
+  case "log:thread-image":
+  case "log:thread-admins":
 }
 ```
 
@@ -222,5 +218,5 @@ switch (event.logMessageType) {
 <div align="center">
   <sub>Built on the shoulders of giants · Respect Open Source · Credit your sources</sub>
   <br/>
-  <sub><b>Original Work © NTKhang (ntkhang03) &nbsp;|&nbsp; Fork by EryXenX</b></sub>
+  <sub><b>Original Work © NTKhang (ntkhang03) &nbsp;|&nbsp; Fork by EryXenX (Mohammad Akash)</b></sub>
 </div>
