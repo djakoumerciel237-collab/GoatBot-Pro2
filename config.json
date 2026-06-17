@@ -13,7 +13,7 @@
   "language": "en",
   "notesLanguage": "change language using ISO 639-1 code",
   "nickNameBot": "𝐒𝐚𝐦𝐦𝐲",
-  "prefix": "/",
+  "prefix": ".",
   "noPrefix": {
     "enable": false,
     "notes": "true = only bot admins can use commands without prefix | false = everyone must use prefix"
