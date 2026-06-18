@@ -4,14 +4,21 @@ const log = require("./logger/log.js");
 const http = require("http");
 const express = require('express');
 const app = express();
-
 const PORT = process.env.PORT || 3000;
 
 // 1. Anti-sleep server pour Railway + UptimeRobot
 app.get('/', (req, res) => {
   res.status(200).send(`GoatBot-Pro is alive - ${new Date().toISOString()}`);
 });
-app.get('/ping', (req, res) => res.send('pong'));
+
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
+});
+
+// AJOUTE CETTE ROUTE POUR UPTIMEROBOT
+app.get('/logs', (req, res) => {
+  res.status(200).send(`GoatBot-Pro logs endpoint - OK - ${new Date().toISOString()}`);
+});
 
 app.listen(PORT, () => {
   console.log(`[UPTIME] Server running on port ${PORT}`);
@@ -49,5 +56,4 @@ function startProject() {
 }
 
 startProject();
-
 console.log('[BOOT] GoatBot-Pro started with 30-day uptime system');
