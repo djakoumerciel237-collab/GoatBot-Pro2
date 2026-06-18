@@ -1,24 +1,17 @@
 {
   "name": "goatbot-pro",
   "version": "2.0.0",
-  "description": "GoatBot Pro by NTKhang",
   "main": "index.js",
-  "engines": {
-    "node": "18.x"
-  },
-  "scripts": {
-    "start": "node index.js"
-  },
+  "engines": {"node": "18.x"},
+  "scripts": {"start": "node index.js"},
   "dependencies": {
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "express": "^4.18.2",
-    "fca-unofficial": "^1.7.2",
+    "fca-unofficial": "latest",
     "fs-extra": "^11.1.1",
     "moment-timezone": "^0.5.43",
     "nodemailer": "^6.9.7",
     "ws": "^8.14.2"
-  },
-  "author": "NTKhang",
-  "license": "MIT"
+  }
 }
